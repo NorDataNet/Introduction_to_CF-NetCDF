@@ -1,4 +1,4 @@
-# NetCDF in R: From beginner to pro
+# Introduction to NetCDF files
 
 ## Introduction
 
