@@ -1,0 +1,12 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: 01_what_is_a_netcdf_file.ipynb
+- file: 02_how_to_open_a_netcdf_file.ipynb
+- file: 03_how_to_create_a_netcdf_file.ipynb
+
+
+
