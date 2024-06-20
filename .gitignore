@@ -1,0 +1,4 @@
+notes.txt
+*.ipynb_checkpoints*
+*_build*
+data/exported_from_notebooks/*
