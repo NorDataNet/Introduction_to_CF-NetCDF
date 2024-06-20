@@ -1,0 +1,750 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>How to open a NetCDF file &#8212; Introduction to CF-NetCDF</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02_how_to_open_a_netcdf_file';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to create a CF-NetCDF file" href="03_how_to_create_a_netcdf_file.html" />
+    <link rel="prev" title="What is a NetCDF file" href="01_what_is_a_netcdf_file.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Introduction to CF-NetCDF - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Introduction to CF-NetCDF - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    NetCDF in R: From beginner to pro
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_what_is_a_netcdf_file.html">What is a NetCDF file</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to open a NetCDF file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_how_to_create_a_netcdf_file.html">How to create a CF-NetCDF file</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/lhmarsden/Introduction_to_CF-NetCDF" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/lhmarsden/Introduction_to_CF-NetCDF/issues/new?title=Issue%20on%20page%20%2F02_how_to_open_a_netcdf_file.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/02_how_to_open_a_netcdf_file.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>How to open a NetCDF file</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-common-programming-languages">Using common programming languages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#netcdf4">netcdf4</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#xarray">xarray</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r">R</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rnetcdf">RNetCDF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#panoply">Panoply</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncdump">ncdump</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linux">Linux</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#macos">macOS</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">Windows</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-usage">Basic Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-data">Converting data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-directly-as-a-csv-or-ascii-file">Download the data directly as a CSV or ASCII file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opendap">OPeNDAP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-services">Custom services</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-open-a-netcdf-file">
+<h1>How to open a NetCDF file<a class="headerlink" href="#how-to-open-a-netcdf-file" title="Permalink to this heading">#</a></h1>
+<p>NetCDF files are software independent, so there is a lot of different ways to open a file and extract the data and metadata. However, since they are binary files, you can’t simply open a NetCDF file in a text editor.</p>
+<p>Each subsection below describes a different way to open a NetCDF file.</p>
+<section id="using-common-programming-languages">
+<h2>Using common programming languages<a class="headerlink" href="#using-common-programming-languages" title="Permalink to this heading">#</a></h2>
+<p>Most common programming languages have libraries that can be used to work with NetCDF files. Here are some useful materials for different programming languages.</p>
+<section id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this heading">#</a></h3>
+<p>There are a few different libraries that can be used to open NetCDF files in Python. Perhaps the two most common are <em>xarray</em> and <em>netcdf4</em>.</p>
+<section id="netcdf4">
+<h4>netcdf4<a class="headerlink" href="#netcdf4" title="Permalink to this heading">#</a></h4>
+<p>Provides a low-level interface to read and write NetCDF files. It’s a direct wrapper around the NetCDF C library. It provides you with more control over handling data structures, attributes, and dimensions compared to xarray. It gives you direct access to all NetCDF features, including advanced features like parallel I/O and compression. It is therefore often more useful for tasks that require fine control over NetCDF data and performance optimizations.</p>
+<p>Some useful materials:</p>
+<ol class="arabic simple">
+<li><p>netcdf4 documentation: <a class="reference external" href="https://unidata.github.io/netcdf4-python/">https://unidata.github.io/netcdf4-python/</a></p></li>
+</ol>
+</section>
+<section id="xarray">
+<h4>xarray<a class="headerlink" href="#xarray" title="Permalink to this heading">#</a></h4>
+<p>Builds on top of <em>netCDF4</em> and other array libraries like <em>NumPy</em> and <em>pandas</em> to provide a high-level interface for working with multi-dimensional arrays. It’s designed for labeled, multi-dimensional data, such as NetCDF files (but not exclusively NetCDF files). Compared to <em>netcdf4</em> it provides more convenient functionality which makes it much simpler to work with NetCDF files. It is suitable for most tasks working with NetCDF files, and has built-in functions for plotting data and converting data to or from pandas dataframes which can simplify your workflow.</p>
+<p>Some useful materials:</p>
+<ol class="arabic simple">
+<li><p>Tutorial series on working with NetCDF files using xarray: <a class="reference external" href="https://lhmarsden.github.io/NetCDF_in_Python_from_beginner_to_pro">https://lhmarsden.github.io/NetCDF_in_Python_from_beginner_to_pro</a></p></li>
+<li><p>xarray documentation: <a class="reference external" href="https://docs.xarray.dev/en/stable/">https://docs.xarray.dev/en/stable/</a></p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
+<span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;699jkjLJGyM&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/699jkjLJGyM"
+            frameborder="0"
+            allowfullscreen
+            
+        ></iframe>
+        </div></div>
+</div>
+</section>
+</section>
+<section id="r">
+<h3>R<a class="headerlink" href="#r" title="Permalink to this heading">#</a></h3>
+<p>There are a few different libraries that can be used to open NetCDF files in R. Perhaps the two most common are <em>RNetCDF</em> and <em>ncdf4</em>.</p>
+<section id="rnetcdf">
+<h4>RNetCDF<a class="headerlink" href="#rnetcdf" title="Permalink to this heading">#</a></h4>
+<p>Provides an interface to the NetCDF C library for reading and writing NetCDF files in R. Suitable for detailed operations on NetCDF files within the R programming environment.</p>
+<p>Some useful materials:</p>
+<ol class="arabic simple">
+<li><p>Tutorial series for working with NetCDF files using R: <a class="reference external" href="https://lhmarsden.github.io/NetCDF_in_R_from_beginner_to_pro">https://lhmarsden.github.io/NetCDF_in_R_from_beginner_to_pro</a></p></li>
+<li><p>RNetCDF documentation: <a class="reference external" href="https://cran.r-project.org/web/packages/RNetCDF/RNetCDF.pdf">https://cran.r-project.org/web/packages/RNetCDF/RNetCDF.pdf</a></p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;Xer1XBm3sns&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/Xer1XBm3sns"
+            frameborder="0"
+            allowfullscreen
+            
+        ></iframe>
+        </div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="panoply">
+<h2>Panoply<a class="headerlink" href="#panoply" title="Permalink to this heading">#</a></h2>
+<p>Panoply is a software tool developed by NASA’s Goddard Institute for Space Studies (GISS) that allows users to visualize and analyze data stored in NetCDF files, along with other formats such as HDF (Hierarchical Data Format) and GRIB (GRIdded Binary). Panoply is particularly useful for handling geospatial data, making it popular in the fields of climate science, meteorology, and oceanography.</p>
+<p>Panoply can be downloaded from the official NASA GISS website, and is available for Windows, Linux and Mac users.
+<a class="reference external" href="https://www.giss.nasa.gov/tools/panoply/download/">https://www.giss.nasa.gov/tools/panoply/download/</a></p>
+<p>Here is a short video tutorial on how to download Panoply (no installation required), plot data, and export the data to CSV or Excel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;AHNaDI6B92o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/AHNaDI6B92o"
+            frameborder="0"
+            allowfullscreen
+            
+        ></iframe>
+        </div></div>
+</div>
+</section>
+<section id="ncdump">
+<h2>ncdump<a class="headerlink" href="#ncdump" title="Permalink to this heading">#</a></h2>
+<p>ncdump is a command-line utility that is primarily used for:</p>
+<ul class="simple">
+<li><p>Displaying the contents of NetCDF files: It converts NetCDF binary files into a human-readable ASCII format.</p></li>
+<li><p>Checking the structure and metadata: It provides detailed information about the dimensions, variables, attributes, and data types contained in a NetCDF file.</p></li>
+</ul>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h3>
+<section id="linux">
+<h4>Linux<a class="headerlink" href="#linux" title="Permalink to this heading">#</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">netcdf</span><span class="o">-</span><span class="nb">bin</span>
+</pre></div>
+</div>
+</section>
+<section id="macos">
+<h4>macOS<a class="headerlink" href="#macos" title="Permalink to this heading">#</a></h4>
+<p>Install Homebrew (if not already installed):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</span>
+</pre></div>
+</div>
+<p>Install NetCDF:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">netcdf</span>
+</pre></div>
+</div>
+</section>
+<section id="windows">
+<h4>Windows<a class="headerlink" href="#windows" title="Permalink to this heading">#</a></h4>
+<p>There is some information here on how to install ncdump for Windows
+<a class="reference external" href="https://pjbartlein.github.io/REarthSysSci/install_netCDF.html">https://pjbartlein.github.io/REarthSysSci/install_netCDF.html</a></p>
+</section>
+</section>
+<section id="verification">
+<h3>Verification<a class="headerlink" href="#verification" title="Permalink to this heading">#</a></h3>
+<p>After installation, you can verify that ncdump is installed correctly by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ncdump</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>This command should display the help information for ncdump, confirming that the installation was successful.</p>
+</section>
+<section id="basic-usage">
+<h3>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading">#</a></h3>
+<p>The basic syntax of ncdump is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ncdump</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="n">filename</span>
+</pre></div>
+</div>
+<p>Common Options:</p>
+<ul class="simple">
+<li><p>-h: Show the header information (metadata) only, without the variable data.</p></li>
+<li><p>-c: Show the header information along with coordinate variable data.</p></li>
+<li><p>-v: Show data for specified variables only, e.g. <code class="docutils literal notranslate"><span class="pre">ncdump</span> <span class="pre">-v</span> <span class="pre">temperature,pressure</span> <span class="pre">filename.nc</span></code>.</p></li>
+<li><p>-x: Output in XML (NcML) format.</p></li>
+<li><p>-k: Show the kind of the NetCDF file (e.g., classic, 64-bit offset, netCDF-4, etc.).</p></li>
+<li><p>-f: Show floating point values with full precision.</p></li>
+</ul>
+</section>
+<section id="converting-data">
+<h3>Converting data<a class="headerlink" href="#converting-data" title="Permalink to this heading">#</a></h3>
+<p>While its primary function is not conversion, ncdump can be used to output data in a format that can be further processed or converted into other formats using additional tools. For example, to write the values from a variable to a text file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ncdump</span> <span class="o">-</span><span class="n">v</span> <span class="n">variable_name</span> <span class="n">your_file</span><span class="o">.</span><span class="n">nc</span> <span class="o">&gt;</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="download-the-data-directly-as-a-csv-or-ascii-file">
+<h2>Download the data directly as a CSV or ASCII file<a class="headerlink" href="#download-the-data-directly-as-a-csv-or-ascii-file" title="Permalink to this heading">#</a></h2>
+<p>Because CF-NetCDF files are standardised, it is possible for data centres and data access portals to build ways for the user to download the data directly into CSV or ASCII files. This makes it easier for some people to access the data. Whether this is possible or not depends on the data centre/data access portal and the file. Not all services offer such services. This might be something to consider when deciding where you want to publish your own NetCDF file.</p>
+<p>Here are some things to look out for.</p>
+<section id="opendap">
+<h3>OPeNDAP<a class="headerlink" href="#opendap" title="Permalink to this heading">#</a></h3>
+<p>You might see that the data are available via OPeNDAP. OPeNDAP, which stands for “Open-source Project for a Network Data Access Protocol,” makes it easier to access and share scientific data over the internet. One advantage of using OPeNDAP is that you don’t need to download the NetCDF file to use the data inside!</p>
+<p>The data centre or data access portal can direct you to an OPeNDAP data access form like this one:
+<a class="reference external" href="https://opendap1.nodc.no/opendap/physics/point/cruise/nansen_legacy-single_profile/NMDC_Nansen-Legacy_PR_CT_58US_2021708/CTD_station_P1_NLEG01-1_-">https://opendap1.nodc.no/opendap/physics/point/cruise/nansen_legacy-single_profile/NMDC_Nansen-Legacy_PR_CT_58US_2021708/CTD_station_P1_NLEG01-1_-</a><em>Nansen_Legacy_Cruise</em>-_2021_Joint_Cruise_2-1.nc.html</p>
+<p><img alt="OPeNDAP server data access form" src="_images/opendap.png" /></p>
+<p>It provides you with a preview of the data, showing you all the variables included as well as the variable and global attributes. It allows you to:</p>
+<ul class="simple">
+<li><p>Download the data to either an ASCII file or a NetCDF file</p></li>
+<li><p>Select the checkboxes to access only certain variables</p></li>
+<li><p>Select only a subset of each variable by using the text boxes above each variable (after selecting the checkbox)</p></li>
+<li><p>You can copy the <em>Data URL</em> at the top into your code and use it just like you would do some filepath on your computer. Therefore you can stream the data over the internet without having the download the file to your local computer.</p></li>
+</ul>
+</section>
+<section id="custom-services">
+<h3>Custom services<a class="headerlink" href="#custom-services" title="Permalink to this heading">#</a></h3>
+<p>Some data centres or data access portals might allow you to visualise the data on-the-fly on the dataset landing page. They might also include buttons or icons that you can click to download data directly into a CSV or ASCII file.</p>
+<p>See this example on the SIOS data access portal:</p>
+<p><img alt="SIOS data access portal" src="_images/sios_data_access.png" /></p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_what_is_a_netcdf_file.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">What is a NetCDF file</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_how_to_create_a_netcdf_file.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">How to create a CF-NetCDF file</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-common-programming-languages">Using common programming languages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#netcdf4">netcdf4</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#xarray">xarray</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r">R</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rnetcdf">RNetCDF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#panoply">Panoply</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ncdump">ncdump</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linux">Linux</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#macos">macOS</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">Windows</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-usage">Basic Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-data">Converting data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-directly-as-a-csv-or-ascii-file">Download the data directly as a CSV or ASCII file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opendap">OPeNDAP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-services">Custom services</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Luke Marsden
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
