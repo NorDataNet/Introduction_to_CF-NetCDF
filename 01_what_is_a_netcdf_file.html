@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>What is a NetCDF file &#8212; Introduction to CF-NetCDF</title>
+    <title>Introduction to NetCDF Files &#8212; Introduction to CF-NetCDF</title>
   
   
   
@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="How to open a NetCDF file" href="02_how_to_open_a_netcdf_file.html" />
-    <link rel="prev" title="NetCDF in R: From beginner to pro" href="intro.html" />
+    <link rel="prev" title="Introduction to NetCDF files" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -163,12 +163,12 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    NetCDF in R: From beginner to pro
+                    Introduction to NetCDF files
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">What is a NetCDF file</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to NetCDF Files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_how_to_open_a_netcdf_file.html">How to open a NetCDF file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_how_to_create_a_netcdf_file.html">How to create a CF-NetCDF file</a></li>
 </ul>
@@ -341,7 +341,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -352,11 +354,33 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>What is a NetCDF file</h1>
+    <h1>Introduction to NetCDF Files</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-netcdf">Why NetCDF?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-a-netcdf-file">Example of a NetCDF file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensions">Dimensions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#is-this-example-compliant-with-the-fair-principles">Is this example compliant with the FAIR principles?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fair-compliant-netcdf-files">FAIR-compliant netCDF files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cf-conventions">CF conventions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acdd-conventions">ACDD conventions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validating-compliance">Validating compliance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-a-cf-netcdf-file">Example of a CF-NetCDF file</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -366,8 +390,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="what-is-a-netcdf-file">
-<h1>What is a NetCDF file<a class="headerlink" href="#what-is-a-netcdf-file" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-netcdf-files">
+<h1>Introduction to NetCDF Files<a class="headerlink" href="#introduction-to-netcdf-files" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
@@ -387,7 +411,285 @@ document.write(`
         ></iframe>
         </div></div>
 </div>
-<p>I will not focus on this too much for now, I hope the presentation was sufficient. If not, ask me any questions you have!</p>
+<p>NetCDF (Network Common Data Form) is not just a file format. NetCDF is a collection of software libraries and platform-independent data formats designed to facilitate the creation, access, and sharing of array-based scientific data.</p>
+<p>The project began in 1988, based on the Common Data Format developed by NASA. While the Common Data Format has a focus on space science applications, NetCDF is designed to be more considerate of the broader <em>network</em> of scientific data. NetCDF files were initially developed to facilitate the open sharing of atmospheric data, which was an important step in advancing weather forecasting and climate models. However, NetCDF is now widely used an supported across a range of scientific discplines, including (not by no means limited to):</p>
+<ul class="simple">
+<li><p>Meteorological data: such as temperature, pressure, and humidity measured at different altitudes and times.</p></li>
+<li><p>Oceanographic data: such as sea temperature, salinity, or the concentration of chlorophyll a or different nutrients.</p></li>
+<li><p>Climate model outputs: which often consist of multi-dimensional data arrays representing various environmental parameters over time.</p></li>
+<li><p>Remote sensing data: from satellites, which can include multi-band images and derived products like vegetation indices.</p></li>
+<li><p>Environmental science: for storing and analysing data related to air quality, hydrology, and soil moisture.</p></li>
+</ul>
+<p>There is an ongoing effort to promote the use of NetCDF files across more disciplines – a movement quickly gaining traction. NetCDF files are suitable for any array-oriented scientific data with any number of dimensions. Using the same data format across multiple disciplines facilitates cross-disciplinary collaboration; scientists from different fields can more easily access and understand each other’s data without being impeded by unfamiliar formats. Using fewer data formats also promotes machine interoperability. Visualisation, monitoring services, data aggregation and the  development of wizards to help people create files or extract data can be use more broadly, therefore greatly reducing the amount of work needed to create and maintain such services.</p>
+<p>The project home page is hosted by the Unidata program at the University Corporation for Atmospheric Research (UCAR).
+<a class="reference external" href="https://www.unidata.ucar.edu/software/netcdf/">https://www.unidata.ucar.edu/software/netcdf/</a></p>
+<p>The Unidata Program Center provides netCDF programming interfaces for C, C++, Java, and Fortran. Programming interfaces are also exist for Python, IDL, MATLAB, R, Ruby, and Perl.</p>
+<section id="why-netcdf">
+<h2>Why NetCDF?<a class="headerlink" href="#why-netcdf" title="Permalink to this heading">#</a></h2>
+<p>NetCDF files offer several advantages for scientific data storage and dissemination. They are designed to store large amounts of data in a compact and efficient way, making them ideal for handling the vast datasets typical in scientific research.</p>
+<p>Data in netCDF format is:</p>
+<ul class="simple">
+<li><p><strong>Self-Describing</strong>. A NetCDF file includes metadata that describes the contents and structure of the data, such as variable names, units, and dimensions. For a well-written NetCDF file, the data user shouldn’t have to look anywhere else to understand the contents of the file.</p></li>
+<li><p><strong>Portable</strong>. A netCDF file can used on different computers with different ways of storing formats like integers, characters, and floating-point numbers.</p></li>
+<li><p><strong>Scalable</strong>. You can access small subsets of large datasets easily, even through remote servers.</p></li>
+<li><p><strong>Appendable</strong>. You can add more data to a NetCDF file without changing its structure.</p></li>
+<li><p><strong>Sharable</strong>. Multiple people can read the same NetCDF file at the same time, even if someone else is writing to it.</p></li>
+<li><p><strong>Archivable</strong>. Older NetCDF files will always be accessible with new versions of the software.</p></li>
+</ul>
+</section>
+<section id="example-of-a-netcdf-file">
+<h2>Example of a NetCDF file<a class="headerlink" href="#example-of-a-netcdf-file" title="Permalink to this heading">#</a></h2>
+<p>To better understand how a NetCDF file is structured, let’s consider a simple example. Below is a snippet of a dummy NetCDF file. Keep in mind, this example is created just for this explanation—it’s not real data and is intentionally simple!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dimensions</span><span class="p">:</span>
+	<span class="n">time</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">;</span>
+	<span class="n">lat</span> <span class="o">=</span> <span class="mi">36</span> <span class="p">;</span>
+	<span class="n">lon</span> <span class="o">=</span> <span class="mi">72</span> <span class="p">;</span>
+<span class="n">variables</span><span class="p">:</span>
+	<span class="nb">int</span> <span class="n">time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">time</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;days since 2000-01-01&quot;</span> <span class="p">;</span>
+	<span class="nb">float</span> <span class="n">lat</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">lat</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees_north&quot;</span> <span class="p">;</span>
+	<span class="nb">float</span> <span class="n">lon</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">lon</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees_east&quot;</span> <span class="p">;</span>
+	<span class="nb">float</span> <span class="n">temperature</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">temperature</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees Celsius&quot;</span> <span class="p">;</span>
+		<span class="n">temperature</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;Surface Temperature&quot;</span> <span class="p">;</span>
+
+<span class="o">//</span> <span class="k">global</span> <span class="n">attributes</span><span class="p">:</span>
+		<span class="p">:</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Global Surface Temperature Data&quot;</span> <span class="p">;</span>
+		<span class="p">:</span><span class="n">institution</span> <span class="o">=</span> <span class="s2">&quot;University Centre in Svalbard&quot;</span> <span class="p">;</span>
+		<span class="p">:</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;Observational Data from Arctic Research Station&quot;</span> <span class="p">;</span>
+		<span class="p">:</span><span class="n">history</span> <span class="o">=</span> <span class="s2">&quot;Created 2024-07-08T09:55:36.673269&quot;</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A classic NetCDF file like this one can be broken down into 3 components - dimensions, variables and attributes.</p>
+<section id="dimensions">
+<h3>Dimensions<a class="headerlink" href="#dimensions" title="Permalink to this heading">#</a></h3>
+<p>Dimensions specify the size of data arrays. For instance, the <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension with a value of 10 indicates that a variable using this dimension spans 10 time points. However, it’s important to note that the <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension itself does not provide information on specific times that have been sampled.</p>
+</section>
+<section id="variables">
+<h3>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h3>
+<p>Let’s break down the syntax first. <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">time(time)</span></code> means that the data are integers, the name of the variable is time, and it has one dimension (in brackets) also called <code class="docutils literal notranslate"><span class="pre">time</span></code> - referring to the dimension above.</p>
+<p>Variables can be broken down into coordinate variables and data variables. Coordinate variables are 1D, and it is not uncommon for the coordinate variables to have the same name as their respective dimension. Data variables can have any number of dimensions - e.g. <code class="docutils literal notranslate"><span class="pre">float</span> <span class="pre">temperature(time,</span> <span class="pre">lat,</span> <span class="pre">lon)</span></code> above. This <code class="docutils literal notranslate"><span class="pre">temperature</span></code> variable is a 3D array of floating-point numbers (numbers with decimal digits).</p>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">#</a></h3>
+<p>Attributes are metadata that can be broken down into global attributes and variable attributes. Variable attributes describe the variable (e.g. units, a description for the variable). Global attributes describe the dataset as a whole. In this example, they include title, institution, and source.</p>
+</section>
+<section id="is-this-example-compliant-with-the-fair-principles">
+<h3>Is this example compliant with the FAIR principles?<a class="headerlink" href="#is-this-example-compliant-with-the-fair-principles" title="Permalink to this heading">#</a></h3>
+<p>In short, no!</p>
+<p>The above example includes custom attributes. In this case, you might be able to understand each attribute, you might not. If 10 people were asked to write the same dataset to a NetCDF file, would they allm use the same set of attributes? Would they all all populate their attributes in the same way? Would they all use the same name for their variables? Most likely, they would create 10 completely unique files, and you might not be able to understand all of them.</p>
+<p>For NetCDF files to be fully compliant with the FAIR principles, they should adhere to specific conventions. These conventions should describe, with a few degrees of freedom as possible;</p>
+<ul class="simple">
+<li><p>How to structure the data within a NetCDF file</p></li>
+<li><p>Which variable and global attributes should be included and how to populate them</p></li>
+</ul>
+<p>These conventions should be documented clearly online. It should be mentioned within the file which conventions have been adhered to, and which version.</p>
+</section>
+</section>
+<section id="fair-compliant-netcdf-files">
+<h2>FAIR-compliant netCDF files<a class="headerlink" href="#fair-compliant-netcdf-files" title="Permalink to this heading">#</a></h2>
+<p>To be fully compliant with the FAIR principles, NetCDF files should adhere to the Climate &amp; Forecast (CF) conventions and the Attribute Convention for Data Discovery (ACDD). These conventions provide standardised guidelines that ensure consistency between files, which is crucial for interoperability across different software tools and disciplines that utilise NetCDF files.</p>
+<p>By following these conventions, both the data creator and user, whether human or machine, should be able to understand the data in the same way. A NetCDF file itself is not necessarily FAIR because you could include any attributes or structure your data however you like. However, a CF-NetCDF file is FAIR-compliant.</p>
+<section id="cf-conventions">
+<h3>CF conventions<a class="headerlink" href="#cf-conventions" title="Permalink to this heading">#</a></h3>
+<p>The CF conventions are a set of standards that define how a NetCDF file should be structured. They also provide some terms that can be used as variable or global attributes.
+<a class="reference external" href="https://cfconventions.org/">https://cfconventions.org/</a></p>
+<p>Their online documentation is extensive and provides standardised ways to organise many different types of data. You don’t need to read it all, but the documentation is a useful resource if you want to know how to structure or understand a CF-NetCDF file. Included are numerous examples of how certain aspects of a NetCDF file should be encoded in various specific scenarios.</p>
+<p>Particularly noteworthy is the CF standard names controlled vocabulary.
+<a class="reference external" href="https://cfconventions.org/Data/cf-standard-names/current/build/cf-standard-name-table.html">https://cfconventions.org/Data/cf-standard-names/current/build/cf-standard-name-table.html</a></p>
+<p>This is a collection of variable names with descriptions that the data creator and user can read. Each variable in a CF-NetCDF file should include a <code class="docutils literal notranslate"><span class="pre">standard_name</span></code> variable attribute populated with one of these terms. Canonical units are also provided in the table, but the data can be archived with different units as long as they are physically equivalent to the canonical units.</p>
+</section>
+<section id="acdd-conventions">
+<h3>ACDD conventions<a class="headerlink" href="#acdd-conventions" title="Permalink to this heading">#</a></h3>
+<p>The ACDD conventions focus on enhancing the discoverability of NetCDF files. They mainly provide a set of recommendations for global attributes that should be included in a CF-NetCDF file (e.g. where and when the data were collected/created, by whom, some keywords), but also a few variable attributes. By including ACDD metadata, NetCDF files become more searchable and accessible through data catalogues and repositories.
+<a class="reference external" href="https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3">https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3</a></p>
+</section>
+<section id="validating-compliance">
+<h3>Validating compliance<a class="headerlink" href="#validating-compliance" title="Permalink to this heading">#</a></h3>
+<p>There are also validators you can use to ensure that your files are compliant with the CF and ACDD conventions before you publish them. For example:
+<a class="reference external" href="https://compliance.ioos.us/index.html">https://compliance.ioos.us/index.html</a>
+<a class="reference external" href="https://sios-svalbard.org/dataset_validation/form">https://sios-svalbard.org/dataset_validation/form</a> (need a SIOS account)</p>
+</section>
+</section>
+<section id="example-of-a-cf-netcdf-file">
+<h2>Example of a CF-NetCDF file<a class="headerlink" href="#example-of-a-cf-netcdf-file" title="Permalink to this heading">#</a></h2>
+<p>Below is an example of a CF-NetCDF file of global sea ice concentration data.</p>
+<p>The file is structured with the dimensions <code class="docutils literal notranslate"><span class="pre">time</span></code> (unlimited and currently holds one value), <code class="docutils literal notranslate"><span class="pre">nv</span></code> (2 values), and <code class="docutils literal notranslate"><span class="pre">xc</span></code> and <code class="docutils literal notranslate"><span class="pre">yc</span></code> (both with 864 values representing the x and y coordinates in the projection, respectively).</p>
+<p>There is a variable that defines the projection; in this case the <em>Lambert Azimuthal Equal Area</em> projection, crucial for accurately mapping the data onto a geographic grid.</p>
+<p><code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">xc</span></code>, <code class="docutils literal notranslate"><span class="pre">yc</span></code> are 1D coordinate variables, whilst <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code> are 2D arrays - the geographic coordinates are provided for every point in the 2D x,y grid. The primary data variable <code class="docutils literal notranslate"><span class="pre">ice_conc</span></code> represents the fully filtered concentration of sea ice and includes attributes that are defined within the CF conventions documentation at <a class="reference external" href="https://cfconventions.org/Data/cf-conventions/cf-conventions-1.7/cf-conventions.html#attribute-appendix">https://cfconventions.org/Data/cf-conventions/cf-conventions-1.7/cf-conventions.html#attribute-appendix</a>.</p>
+<p>Extensive global attributes provide essential metadata about the dataset. Particularly important is that the <code class="docutils literal notranslate"><span class="pre">Conventions</span></code> attribute states that the file is compliant with CF-1.7 and ACDD-1.3.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">netcdf</span> <span class="n">classic</span> <span class="p">{</span>
+<span class="n">dimensions</span><span class="p">:</span>
+	<span class="n">time</span> <span class="o">=</span> <span class="n">UNLIMITED</span> <span class="p">;</span> <span class="o">//</span> <span class="p">(</span><span class="mi">1</span> <span class="n">currently</span><span class="p">)</span>
+	<span class="n">nv</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">;</span>
+	<span class="n">xc</span> <span class="o">=</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">yc</span> <span class="o">=</span> <span class="mi">864</span> <span class="p">;</span>
+<span class="n">variables</span><span class="p">:</span>
+	<span class="n">NC_INT</span> <span class="n">Lambert_Azimuthal_Grid</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">Lambert_Azimuthal_Grid</span><span class="p">:</span><span class="n">grid_mapping_name</span> <span class="o">=</span> <span class="s2">&quot;lambert_azimuthal_equal_area&quot;</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">Lambert_Azimuthal_Grid</span><span class="p">:</span><span class="n">longitude_of_projection_origin</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">Lambert_Azimuthal_Grid</span><span class="p">:</span><span class="n">latitude_of_projection_origin</span> <span class="o">=</span> <span class="mi">90</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">Lambert_Azimuthal_Grid</span><span class="p">:</span><span class="n">false_easting</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">Lambert_Azimuthal_Grid</span><span class="p">:</span><span class="n">false_northing</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">Lambert_Azimuthal_Grid</span><span class="p">:</span><span class="n">semi_major_axis</span> <span class="o">=</span> <span class="mi">6378137</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">Lambert_Azimuthal_Grid</span><span class="p">:</span><span class="n">inverse_flattening</span> <span class="o">=</span> <span class="mf">298.257223563</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">Lambert_Azimuthal_Grid</span><span class="p">:</span><span class="n">proj4_string</span> <span class="o">=</span> <span class="s2">&quot;+proj=laea +lon_0=0 +datum=WGS84 +ellps=WGS84 +lat_0=90.0&quot;</span> <span class="p">;</span>
+	<span class="n">NC_DOUBLE</span> <span class="n">time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">time</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;seconds since 1978-01-01 00:00:00&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">time</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;reference time of product&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">time</span><span class="p">:</span><span class="n">standard_name</span> <span class="o">=</span> <span class="s2">&quot;time&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">time</span><span class="p">:</span><span class="n">axis</span> <span class="o">=</span> <span class="s2">&quot;T&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">time</span><span class="p">:</span><span class="n">calendar</span> <span class="o">=</span> <span class="s2">&quot;standard&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">time</span><span class="p">:</span><span class="n">bounds</span> <span class="o">=</span> <span class="s2">&quot;time_bnds&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">time</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">512</span> <span class="p">;</span>
+	<span class="n">NC_DOUBLE</span> <span class="n">time_bnds</span><span class="p">(</span><span class="n">nv</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">time_bnds</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">;</span>
+	<span class="n">NC_DOUBLE</span> <span class="n">xc</span><span class="p">(</span><span class="n">xc</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">xc</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;km&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">xc</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;x coordinate of projection (eastings)&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">xc</span><span class="p">:</span><span class="n">standard_name</span> <span class="o">=</span> <span class="s2">&quot;projection_x_coordinate&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">xc</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">NC_DOUBLE</span> <span class="n">yc</span><span class="p">(</span><span class="n">yc</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">yc</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;km&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">yc</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;y coordinate of projection (northings)&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">yc</span><span class="p">:</span><span class="n">standard_name</span> <span class="o">=</span> <span class="s2">&quot;projection_y_coordinate&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">yc</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">NC_FLOAT</span> <span class="n">lat</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">lat</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees_north&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">lat</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;latitude coordinate&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">lat</span><span class="p">:</span><span class="n">standard_name</span> <span class="o">=</span> <span class="s2">&quot;latitude&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">lat</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">864</span><span class="p">,</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">NC_FLOAT</span> <span class="n">lon</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">lon</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees_east&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">lon</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;longitude coordinate&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">lon</span><span class="p">:</span><span class="n">standard_name</span> <span class="o">=</span> <span class="s2">&quot;longitude&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">lon</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">864</span><span class="p">,</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">NC_INT</span> <span class="n">ice_conc</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">_FillValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">32767</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;fully filtered concentration of sea ice using atmospheric correction of brightness temperatures and open water filters&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">standard_name</span> <span class="o">=</span> <span class="s2">&quot;sea_ice_area_fraction&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;%&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">valid_min</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">valid_max</span> <span class="o">=</span> <span class="mi">10000</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">grid_mapping</span> <span class="o">=</span> <span class="s2">&quot;Lambert_Azimuthal_Grid&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">ancillary_variables</span> <span class="o">=</span> <span class="s2">&quot;total_standard_uncertainty status_flag&quot;</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">comment</span> <span class="o">=</span> <span class="s2">&quot;this field is the primary sea ice concentration estimate for this climate data record&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">coordinates</span> <span class="o">=</span> <span class="s2">&quot;time lat lon&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">ice_conc</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">864</span><span class="p">,</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">NC_INT</span> <span class="n">raw_ice_conc_values</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">raw_ice_conc_values</span><span class="p">:</span><span class="n">_FillValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">32767</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">raw_ice_conc_values</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;sea ice concentration estimates as retrieved by the algorithm, and that were edited away by the various filters&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">raw_ice_conc_values</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;%&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">raw_ice_conc_values</span><span class="p">:</span><span class="n">grid_mapping</span> <span class="o">=</span> <span class="s2">&quot;Lambert_Azimuthal_Grid&quot;</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">raw_ice_conc_values</span><span class="p">:</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">raw_ice_conc_values</span><span class="p">:</span><span class="n">comment</span> <span class="o">=</span> <span class="s2">&quot;this field can be used in combination with &#39;ice_conc&#39; to access un-bounded normal distribution of sea ice concentration estimates corresponding to the uncertainty estimate in &#39;total_standard_uncertainty&#39;. It does also feature some amount of un-physical data (below 0</span><span class="si">% a</span><span class="s2">nd above 100%).&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">raw_ice_conc_values</span><span class="p">:</span><span class="n">coordinates</span> <span class="o">=</span> <span class="s2">&quot;time lat lon&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">raw_ice_conc_values</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">864</span><span class="p">,</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">NC_INT</span> <span class="n">total_standard_uncertainty</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">total_standard_uncertainty</span><span class="p">:</span><span class="n">_FillValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">32767</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">total_standard_uncertainty</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;total uncertainty (one standard deviation) of concentration of sea ice&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">total_standard_uncertainty</span><span class="p">:</span><span class="n">standard_name</span> <span class="o">=</span> <span class="s2">&quot;sea_ice_area_fraction standard_error&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">total_standard_uncertainty</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;%&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">total_standard_uncertainty</span><span class="p">:</span><span class="n">grid_mapping</span> <span class="o">=</span> <span class="s2">&quot;Lambert_Azimuthal_Grid&quot;</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">total_standard_uncertainty</span><span class="p">:</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">total_standard_uncertainty</span><span class="p">:</span><span class="n">coordinates</span> <span class="o">=</span> <span class="s2">&quot;time lat lon&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">total_standard_uncertainty</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">864</span><span class="p">,</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">NC_INT</span> <span class="n">smearing_standard_uncertainty</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">smearing_standard_uncertainty</span><span class="p">:</span><span class="n">_FillValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">32767</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">smearing_standard_uncertainty</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;smearing uncertainty (one standard deviation) of concentration of sea ice&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">smearing_standard_uncertainty</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;%&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">smearing_standard_uncertainty</span><span class="p">:</span><span class="n">grid_mapping</span> <span class="o">=</span> <span class="s2">&quot;Lambert_Azimuthal_Grid&quot;</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">smearing_standard_uncertainty</span><span class="p">:</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">smearing_standard_uncertainty</span><span class="p">:</span><span class="n">comment</span> <span class="o">=</span> <span class="s2">&quot;this is one of the two components contributing to &#39;total_standard_uncertainty&#39;&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">smearing_standard_uncertainty</span><span class="p">:</span><span class="n">coordinates</span> <span class="o">=</span> <span class="s2">&quot;time lat lon&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">smearing_standard_uncertainty</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">864</span><span class="p">,</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">NC_INT</span> <span class="n">algorithm_standard_uncertainty</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">algorithm_standard_uncertainty</span><span class="p">:</span><span class="n">_FillValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">32767</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">algorithm_standard_uncertainty</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;algorithm uncertainty (one standard deviation) of concentration of sea ice&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">algorithm_standard_uncertainty</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;%&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">algorithm_standard_uncertainty</span><span class="p">:</span><span class="n">grid_mapping</span> <span class="o">=</span> <span class="s2">&quot;Lambert_Azimuthal_Grid&quot;</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="n">algorithm_standard_uncertainty</span><span class="p">:</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">algorithm_standard_uncertainty</span><span class="p">:</span><span class="n">comment</span> <span class="o">=</span> <span class="s2">&quot;this is one of the two components contributing to &#39;total_standard_uncertainty&#39;&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">algorithm_standard_uncertainty</span><span class="p">:</span><span class="n">coordinates</span> <span class="o">=</span> <span class="s2">&quot;time lat lon&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">algorithm_standard_uncertainty</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">864</span><span class="p">,</span> <span class="mi">864</span> <span class="p">;</span>
+	<span class="n">NC_SHORT</span> <span class="n">status_flag</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">NC_SHORT</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">_FillValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">32768</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;status flag bit array for sea ice concentration retrievals&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">standard_name</span> <span class="o">=</span> <span class="s2">&quot;sea_ice_area_fraction status_flag&quot;</span> <span class="p">;</span>
+		<span class="n">NC_SHORT</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">valid_min</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+		<span class="n">NC_SHORT</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">valid_max</span> <span class="o">=</span> <span class="mi">32767</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">grid_mapping</span> <span class="o">=</span> <span class="s2">&quot;Lambert_Azimuthal_Grid&quot;</span> <span class="p">;</span>
+		<span class="n">NC_SHORT</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">flag_masks</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">flag_meanings</span> <span class="o">=</span> <span class="s2">&quot;land lake open_water_filtered land_spill_over high_t2m spatial_interp temporal_interp max_ice_climo&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">flag_descriptions</span> <span class="o">=</span> <span class="s2">&quot;</span>
+<span class="nb">all</span> <span class="n">bits</span> <span class="n">to</span> <span class="mi">0</span> <span class="p">(</span><span class="n">flag</span> <span class="mi">0</span><span class="p">):</span> <span class="n">Nominal</span> <span class="n">retrieval</span> <span class="n">by</span> <span class="n">the</span> <span class="n">SIC</span> <span class="n">algorithm</span>
+<span class="n">bit</span> <span class="mi">1</span> <span class="p">(</span><span class="n">flag</span> <span class="mi">1</span><span class="p">):</span> <span class="n">Position</span> <span class="ow">is</span> <span class="n">over</span> <span class="n">land</span>
+<span class="n">bit</span> <span class="mi">2</span> <span class="p">(</span><span class="n">flag</span> <span class="mi">2</span><span class="p">):</span> <span class="n">Position</span> <span class="ow">is</span> <span class="n">lake</span>
+<span class="n">bit</span> <span class="mi">3</span> <span class="p">(</span><span class="n">flag</span> <span class="mi">4</span><span class="p">):</span> <span class="n">SIC</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">to</span> <span class="n">zero</span> <span class="n">by</span> <span class="n">the</span> <span class="nb">open</span> <span class="n">water</span> <span class="nb">filter</span>
+<span class="n">bit</span> <span class="mi">4</span> <span class="p">(</span><span class="n">flag</span> <span class="mi">8</span><span class="p">):</span> <span class="n">SIC</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">changed</span> <span class="k">for</span> <span class="n">correcting</span> <span class="n">land</span> <span class="n">spill</span><span class="o">-</span><span class="n">over</span> <span class="n">effects</span>
+<span class="n">bit</span> <span class="mi">5</span> <span class="p">(</span><span class="n">flag</span> <span class="mi">16</span><span class="p">):</span> <span class="n">Handle</span> <span class="k">with</span> <span class="n">caution</span><span class="p">,</span> <span class="n">the</span> <span class="mi">2</span><span class="n">m</span> <span class="n">air</span> <span class="n">temperature</span> <span class="ow">is</span> <span class="n">high</span> <span class="n">at</span> <span class="n">this</span> <span class="n">position</span><span class="p">,</span> <span class="ow">and</span> <span class="n">this</span> <span class="n">might</span> <span class="n">be</span> <span class="n">false</span> <span class="n">ice</span>
+<span class="n">bit</span> <span class="mi">6</span> <span class="p">(</span><span class="n">flag</span> <span class="mi">32</span><span class="p">):</span> <span class="n">Value</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">result</span> <span class="n">of</span> <span class="n">spatial</span> <span class="n">interpolation</span>
+<span class="n">bit</span> <span class="mi">7</span> <span class="p">(</span><span class="n">flag</span> <span class="mi">64</span><span class="p">):</span> <span class="n">Value</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">result</span> <span class="n">of</span> <span class="n">temporal</span> <span class="n">interpolation</span>
+<span class="n">bit</span> <span class="mi">8</span> <span class="p">(</span><span class="n">flag</span> <span class="mi">128</span><span class="p">):</span> <span class="n">SIC</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">to</span> <span class="n">zero</span> <span class="n">since</span> <span class="n">position</span> <span class="ow">is</span> <span class="n">outside</span> <span class="n">maximum</span> <span class="n">sea</span> <span class="n">ice</span> <span class="n">climatology</span><span class="o">.</span><span class="s2">&quot; ;</span>
+		<span class="n">NC_CHAR</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">comment</span> <span class="o">=</span> <span class="s2">&quot;Flag values found in the map might be combinations of those listed above. For example flag value 80 (= 2^4 + 2^6 = 16 + 64) indicates high_t2m AND temporal_interp&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">coordinates</span> <span class="o">=</span> <span class="s2">&quot;time lat lon&quot;</span> <span class="p">;</span>
+		<span class="n">NC_INT</span> <span class="n">status_flag</span><span class="p">:</span><span class="n">_ChunkSizes</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">864</span><span class="p">,</span> <span class="mi">864</span> <span class="p">;</span>
+
+<span class="o">//</span> <span class="k">global</span> <span class="n">attributes</span><span class="p">:</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;High(er) Resolution Sea Ice Concentration Climate Data Record Version 3 (SSM/I and SSMIS) from the ESA CCI+&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">summary</span> <span class="o">=</span> <span class="s2">&quot;This climate data record of sea ice concentration is obtained from passive microwave satellite data (SSM/I and SSMIS) over the polar regions (Arctic and Antarctic). The processing chain features: 1) dynamic tuning of tie-points and algorithms,  2) correction of atmospheric noise using a Radiative Transfer Model,  3) computation of per-pixel uncertainties, 4) an optimal hybrid sea ice concentration algorithm, and 5) pan-sharpening of the SIC fields using the near-90GHz imagery channels. This dataset was generated by the ESA Climate Change Initiative (CCI+) Sea Ice Phase 1 project. This dataset is an enhanced-resolution version of the OSI SAF OSI-450-a CDR over the period 1991-2020.&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">topiccategory</span> <span class="o">=</span> <span class="s2">&quot;Oceans ClimatologyMeteorologyAtmosphere&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">keywords</span> <span class="o">=</span> <span class="s2">&quot;GCMDSK:Earth Science &gt; Cryosphere &gt; Sea Ice &gt; Sea Ice Concentration, GCMDSK:Earth Science &gt; Oceans &gt; Sea Ice &gt; Sea Ice Concentration, GCMDSK:Earth Science &gt; Climate Indicators &gt; Cryospheric Indicators &gt; Sea Ice Concentration, GCMDLOC:Geographic Region &gt; Northern Hemisphere, GCMDLOC:Vertical Location &gt; Sea Surface, GCMDPROV: Government Agencies-non-US &gt; Norway &gt; NO/MET &gt; Norwegian Meteorological Institute&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">keywords_vocabulary</span> <span class="o">=</span> <span class="s2">&quot;GCMDSK:GCMD Science Keywords:https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords, GCMDPROV:GCMD Providers:https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/providers, GCMDLOC:GCMD Locations:https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/locations&quot;</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="p">:</span><span class="n">geospatial_lat_min</span> <span class="o">=</span> <span class="mf">16.62393</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="p">:</span><span class="n">geospatial_lat_max</span> <span class="o">=</span> <span class="mi">90</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="p">:</span><span class="n">geospatial_lon_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">180</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="p">:</span><span class="n">geospatial_lon_max</span> <span class="o">=</span> <span class="mi">180</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="p">:</span><span class="n">geospatial_vertical_min</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+		<span class="n">NC_DOUBLE</span> <span class="p">:</span><span class="n">geospatial_vertical_max</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">sensor</span> <span class="o">=</span> <span class="s2">&quot;SSM/I,SSMIS&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">platform</span> <span class="o">=</span> <span class="s2">&quot;DMSP-F&lt;10,11,13,14,15&gt;,DMSP-F&lt;16,17,18&gt;&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;FCDR of SMMR / SSMI / SSMIS Brightness Temperatures R4 from EUMETSAT Climate Monitoring SAF (doi:10.5676/EUM_SAF_CM/FCDR_MWI/V004), ERA5&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">time_coverage_start</span> <span class="o">=</span> <span class="s2">&quot;2007-09-15T00:00:00Z&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">time_coverage_end</span> <span class="o">=</span> <span class="s2">&quot;2007-09-16T00:00:00Z&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">time_coverage_duration</span> <span class="o">=</span> <span class="s2">&quot;P1D&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">time_coverage_resolution</span> <span class="o">=</span> <span class="s2">&quot;P1D&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">project</span> <span class="o">=</span> <span class="s2">&quot;Climate Change Initiative - European Space Agency&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">institution</span> <span class="o">=</span> <span class="s2">&quot;Norwegian Meteorological Institute&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">creator_name</span> <span class="o">=</span> <span class="s2">&quot;Norwegian Meteorological Institute&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">creator_type</span> <span class="o">=</span> <span class="s2">&quot;institution&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">creator_url</span> <span class="o">=</span> <span class="s2">&quot;http://met.no&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">creator_email</span> <span class="o">=</span> <span class="s2">&quot;forskning@met.no&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">license</span> <span class="o">=</span> <span class="s2">&quot;Free and open access&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">references</span> <span class="o">=</span> <span class="s2">&quot;A Product User Guide (PUG), an Algorithm Theoretical Basis Document (ATBD) and a Validation Report (PVASR) are available from the doi landing page and from https://climate.esa.int/seaice&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">history</span> <span class="o">=</span> <span class="s2">&quot;2023-04-20T21:46:46Z creation&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">date_created</span> <span class="o">=</span> <span class="s2">&quot;2023-04-20&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">cdm_data_type</span> <span class="o">=</span> <span class="s2">&quot;Grid&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">spatial_resolution</span> <span class="o">=</span> <span class="s2">&quot;12.5 km grid spacing&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">algorithm</span> <span class="o">=</span> <span class="s2">&quot;reSICCI3LF: SIC from 19/37GHz channels, pan-sharpened with SIC from near-90GHz channels.&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">geospatial_bounds_crs</span> <span class="o">=</span> <span class="s2">&quot;EPSG:6931&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">contributor_name</span> <span class="o">=</span> <span class="s2">&quot;Thomas Lavergne,Atle Soerensen,Rasmus Tonboe,Matilde Kreiner,Roberto Saldo,Anton Birkedal,Fabrizio Baordo,Trygve Aspenes,Steinar Eastwood&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">contributor_role</span> <span class="o">=</span> <span class="s2">&quot;PrincipalInvestigator,author,author,author,author,author,author,author,author&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">product_version</span> <span class="o">=</span> <span class="s2">&quot;3.0&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">tracking_id</span> <span class="o">=</span> <span class="s2">&quot;0a5f4360-8c19-40aa-a09a-bab17eb0b6fc&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">naming_authority</span> <span class="o">=</span> <span class="s2">&quot;NERC EDS Centre for Environmental Data Analysis&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">Conventions</span> <span class="o">=</span> <span class="s2">&quot;CF-1.7,ACDD-1.3&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">standard_name_vocabulary</span> <span class="o">=</span> <span class="s2">&quot;CF Standard Name Table (Version 80, 07 February 2023)&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">product_name</span> <span class="o">=</span> <span class="s2">&quot;cci_HRssmi_sea_ice_conc_climate_data_record&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="nb">id</span> <span class="o">=</span> <span class="s2">&quot;10.5285/eade27004395466aaa006135e1b2ad1a&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">format_version</span> <span class="o">=</span> <span class="s2">&quot;CCI Data Standards v2.3&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">key_variables</span> <span class="o">=</span> <span class="s2">&quot;ice_conc&quot;</span> <span class="p">;</span>
+		<span class="n">NC_CHAR</span> <span class="p">:</span><span class="n">DODS_EXTRA</span><span class="o">.</span><span class="n">Unlimited_Dimension</span> <span class="o">=</span> <span class="s2">&quot;time&quot;</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you use these data, please cite them as recommended below:</p>
+<p>Lavergne, T.; Sørensen, A.; Tonboe, R.T.; Kreiner, M.; Saldo, R.; Birkedal, A.; Baordo, F.; Aspenes, T.; Eastwood, S. (2023): ESA Sea Ice Climate Change Initiative (Sea_Ice_cci): High(er) Resolution Sea Ice Concentration Climate Data Record Version 3 (SSM/I and SSMIS). NERC EDS Centre for Environmental Data Analysis, 17 May 2023. doi:10.5285/eade27004395466aaa006135e1b2ad1a. <a class="reference external" href="https://dx.doi.org/10.5285/eade27004395466aaa006135e1b2ad1a">https://dx.doi.org/10.5285/eade27004395466aaa006135e1b2ad1a</a></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -426,7 +728,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">NetCDF in R: From beginner to pro</p>
+        <p class="prev-next-title">Introduction to NetCDF files</p>
       </div>
     </a>
     <a class="right-next"
@@ -444,6 +746,34 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-netcdf">Why NetCDF?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-a-netcdf-file">Example of a NetCDF file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensions">Dimensions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#is-this-example-compliant-with-the-fair-principles">Is this example compliant with the FAIR principles?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fair-compliant-netcdf-files">FAIR-compliant netCDF files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cf-conventions">CF conventions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acdd-conventions">ACDD conventions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validating-compliance">Validating compliance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-a-cf-netcdf-file">Example of a CF-NetCDF file</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
