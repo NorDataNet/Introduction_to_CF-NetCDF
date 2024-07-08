@@ -395,15 +395,15 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
-<span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;FGHJhAFf1W0&#39;</span><span class="p">)</span>
+<span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;FGHJhAFf1W0&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
         <iframe
-            width="400"
-            height="300"
+            width="800"
+            height="450"
             src="https://www.youtube.com/embed/FGHJhAFf1W0"
             frameborder="0"
             allowfullscreen
@@ -411,8 +411,8 @@ document.write(`
         ></iframe>
         </div></div>
 </div>
-<p>NetCDF (Network Common Data Form) is not just a file format. NetCDF is a collection of software libraries and platform-independent data formats designed to facilitate the creation, access, and sharing of array-based scientific data.</p>
-<p>The project began in 1988, based on the Common Data Format developed by NASA. While the Common Data Format has a focus on space science applications, NetCDF is designed to be more considerate of the broader <em>network</em> of scientific data. NetCDF files were initially developed to facilitate the open sharing of atmospheric data, which was an important step in advancing weather forecasting and climate models. However, NetCDF is now widely used an supported across a range of scientific discplines, including (not by no means limited to):</p>
+<p>NetCDF (Network Common Data Form) is not just a file format. NetCDF is a collection of software libraries and platform-independent data formats designed to facilitate the creation, access, and sharing of array-based scientific data with any number of dimensions.</p>
+<p>The project began in 1988, based on the Common Data Format developed by NASA. While the Common Data Format has a focus on space science applications, NetCDF is designed to be considerate of the broad <em>network</em> of scientific data. NetCDF files were initially developed to facilitate the open sharing of atmospheric data, which was an important step in advancing weather forecasting and climate models. However, NetCDF is now widely used an supported across a range of scientific discplines, including (not by no means limited to):</p>
 <ul class="simple">
 <li><p>Meteorological data: such as temperature, pressure, and humidity measured at different altitudes and times.</p></li>
 <li><p>Oceanographic data: such as sea temperature, salinity, or the concentration of chlorophyll a or different nutrients.</p></li>
@@ -423,37 +423,30 @@ document.write(`
 <p>There is an ongoing effort to promote the use of NetCDF files across more disciplines – a movement quickly gaining traction. NetCDF files are suitable for any array-oriented scientific data with any number of dimensions. Using the same data format across multiple disciplines facilitates cross-disciplinary collaboration; scientists from different fields can more easily access and understand each other’s data without being impeded by unfamiliar formats. Using fewer data formats also promotes machine interoperability. Visualisation, monitoring services, data aggregation and the  development of wizards to help people create files or extract data can be use more broadly, therefore greatly reducing the amount of work needed to create and maintain such services.</p>
 <p>The project home page is hosted by the Unidata program at the University Corporation for Atmospheric Research (UCAR).
 <a class="reference external" href="https://www.unidata.ucar.edu/software/netcdf/">https://www.unidata.ucar.edu/software/netcdf/</a></p>
-<p>The Unidata Program Center provides netCDF programming interfaces for C, C++, Java, and Fortran. Programming interfaces are also exist for Python, IDL, MATLAB, R, Ruby, and Perl.</p>
 <section id="why-netcdf">
 <h2>Why NetCDF?<a class="headerlink" href="#why-netcdf" title="Permalink to this heading">#</a></h2>
 <p>NetCDF files offer several advantages for scientific data storage and dissemination. They are designed to store large amounts of data in a compact and efficient way, making them ideal for handling the vast datasets typical in scientific research.</p>
-<p>Data in netCDF format is:</p>
-<ul class="simple">
-<li><p><strong>Self-Describing</strong>. A NetCDF file includes metadata that describes the contents and structure of the data, such as variable names, units, and dimensions. For a well-written NetCDF file, the data user shouldn’t have to look anywhere else to understand the contents of the file.</p></li>
-<li><p><strong>Portable</strong>. A netCDF file can used on different computers with different ways of storing formats like integers, characters, and floating-point numbers.</p></li>
-<li><p><strong>Scalable</strong>. You can access small subsets of large datasets easily, even through remote servers.</p></li>
-<li><p><strong>Appendable</strong>. You can add more data to a NetCDF file without changing its structure.</p></li>
-<li><p><strong>Sharable</strong>. Multiple people can read the same NetCDF file at the same time, even if someone else is writing to it.</p></li>
-<li><p><strong>Archivable</strong>. Older NetCDF files will always be accessible with new versions of the software.</p></li>
-</ul>
+<p>NetCDF files are</p>
+<p><img alt="Characteristics of a NetCDF file" src="_images/netcdf_features.png" /></p>
 </section>
 <section id="example-of-a-netcdf-file">
 <h2>Example of a NetCDF file<a class="headerlink" href="#example-of-a-netcdf-file" title="Permalink to this heading">#</a></h2>
 <p>To better understand how a NetCDF file is structured, let’s consider a simple example. Below is a snippet of a dummy NetCDF file. Keep in mind, this example is created just for this explanation—it’s not real data and is intentionally simple!</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dimensions</span><span class="p">:</span>
-	<span class="n">time</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">;</span>
-	<span class="n">lat</span> <span class="o">=</span> <span class="mi">36</span> <span class="p">;</span>
-	<span class="n">lon</span> <span class="o">=</span> <span class="mi">72</span> <span class="p">;</span>
+	<span class="n">time</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">;</span>
+	<span class="n">longitude</span> <span class="o">=</span> <span class="mi">4</span> <span class="p">;</span>
+	<span class="n">latitude</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">;</span>
 <span class="n">variables</span><span class="p">:</span>
 	<span class="nb">int</span> <span class="n">time</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="p">;</span>
-		<span class="n">time</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;days since 2000-01-01&quot;</span> <span class="p">;</span>
-	<span class="nb">float</span> <span class="n">lat</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="p">;</span>
-		<span class="n">lat</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees_north&quot;</span> <span class="p">;</span>
-	<span class="nb">float</span> <span class="n">lon</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="p">;</span>
-		<span class="n">lon</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees_east&quot;</span> <span class="p">;</span>
+		<span class="n">time</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;days since 2020-07-06&quot;</span> <span class="p">;</span>
+	<span class="nb">float</span> <span class="n">latitude</span><span class="p">(</span><span class="n">latitude</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">latitude</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees_north&quot;</span> <span class="p">;</span>
+	<span class="nb">float</span> <span class="n">longitude</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span> <span class="p">;</span>
+		<span class="n">longitude</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees_east&quot;</span> <span class="p">;</span>
 	<span class="nb">float</span> <span class="n">temperature</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span> <span class="p">;</span>
+        <span class="n">temperature</span><span class="p">:</span><span class="n">_FillValue</span> <span class="o">=</span> <span class="mf">1.e9</span><span class="n">f</span> <span class="p">;</span>
 		<span class="n">temperature</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees Celsius&quot;</span> <span class="p">;</span>
-		<span class="n">temperature</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;Surface Temperature&quot;</span> <span class="p">;</span>
+		<span class="n">temperature</span><span class="p">:</span><span class="n">long_name</span> <span class="o">=</span> <span class="s2">&quot;Surface sea water temperature&quot;</span> <span class="p">;</span>
 
 <span class="o">//</span> <span class="k">global</span> <span class="n">attributes</span><span class="p">:</span>
 		<span class="p">:</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Global Surface Temperature Data&quot;</span> <span class="p">;</span>
@@ -463,10 +456,11 @@ document.write(`
 <span class="p">}</span>
 </pre></div>
 </div>
+<p><img alt="Example of a NetCDF file" src="_images/netcdf_diagram.png" /></p>
 <p>A classic NetCDF file like this one can be broken down into 3 components - dimensions, variables and attributes.</p>
 <section id="dimensions">
 <h3>Dimensions<a class="headerlink" href="#dimensions" title="Permalink to this heading">#</a></h3>
-<p>Dimensions specify the size of data arrays. For instance, the <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension with a value of 10 indicates that a variable using this dimension spans 10 time points. However, it’s important to note that the <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension itself does not provide information on specific times that have been sampled.</p>
+<p>Dimensions specify the size of data arrays. For instance, the <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension with a value of 2 indicates that a variable using this dimension spans 2 points in time. However, it’s important to note that the <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension itself does not provide information on specific times that have been sampled.</p>
 </section>
 <section id="variables">
 <h3>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">#</a></h3>
@@ -475,12 +469,14 @@ document.write(`
 </section>
 <section id="attributes">
 <h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this heading">#</a></h3>
-<p>Attributes are metadata that can be broken down into global attributes and variable attributes. Variable attributes describe the variable (e.g. units, a description for the variable). Global attributes describe the dataset as a whole. In this example, they include title, institution, and source.</p>
+<p>Attributes are metadata that can be broken down into global attributes and variable attributes.</p>
+<p>Variable attributes describe the variable (e.g. units, a description for the variable). There is a special variable attribute <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> that denotes the value used in the data to denote missing or undefined values - for example, sea surface temperatures over land. Applications that read the data file can use this to know how to represent these values.</p>
+<p>Global attributes describe the dataset as a whole. In this example, they include title, institution, and source.</p>
 </section>
 <section id="is-this-example-compliant-with-the-fair-principles">
 <h3>Is this example compliant with the FAIR principles?<a class="headerlink" href="#is-this-example-compliant-with-the-fair-principles" title="Permalink to this heading">#</a></h3>
 <p>In short, no!</p>
-<p>The above example includes custom attributes. In this case, you might be able to understand each attribute, you might not. If 10 people were asked to write the same dataset to a NetCDF file, would they allm use the same set of attributes? Would they all all populate their attributes in the same way? Would they all use the same name for their variables? Most likely, they would create 10 completely unique files, and you might not be able to understand all of them.</p>
+<p>The data creator is free to define custom attributes. In this case, you might be able to understand each attribute, you might not. If 10 people were asked to write the same dataset to a NetCDF file, would they allm use the same set of attributes? Would they all all populate their attributes in the same way? Would they all use the same name for their variables? Most likely, they would create 10 completely unique files, and you might not be able to understand all of them.</p>
 <p>For NetCDF files to be fully compliant with the FAIR principles, they should adhere to specific conventions. These conventions should describe, with a few degrees of freedom as possible;</p>
 <ul class="simple">
 <li><p>How to structure the data within a NetCDF file</p></li>

@@ -13,6 +13,8 @@ Below is the current contents of the course. Is anything missing? Let me know an
 ```{tableofcontents}
 ```
 
+![Example of a NetCDF file](Images/netcdf_diagram.png)
+
 ## How to cite this course
 
 This tutorial series will be published at a later date. If you have found this useful and want to cite it in your work, check back here later for how to cite it. Please get in touch with me if you need me to publish this sooner rather than later!
